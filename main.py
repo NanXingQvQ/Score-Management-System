@@ -1,7 +1,13 @@
+import hashlib
+
+import pymysql
 from PyQt6.QtCore import QRegularExpression
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap, QCursor, QPainter,  QColor, QBitmap, QRegularExpressionValidator
+from student.stuMain import stuMain
+from teacher.teaMain import teaMain
+from admin.adminMain import adminMain
 '''
 本文件为软件的第一个窗口，实现了用户登录的功能。
 由于PyQt6的某些不兼容问题，本文件将ui和功能的实现放在了一起。
@@ -19,6 +25,7 @@ class loginWidget(QtWidgets.QWidget):
         self.canMoveFlag = False
         self.setupUi()
         self.show()
+
 
     def setupUi(self):
         '''首先初始化主界面，一个透明的widget。'''
@@ -179,6 +186,7 @@ class loginWidget(QtWidgets.QWidget):
         "border-color: gray;\n")
         self.exitButton.setObjectName("exitButton")
         self.exitButton.clicked.connect(self.close)
+        self.nextButton.clicked.connect(self.slot_enter)
 
         '''成绩管理系统'''
         self.label = QtWidgets.QLabel(self)
@@ -241,6 +249,49 @@ class loginWidget(QtWidgets.QWidget):
         painter.end()
         self.setMask(bitmap)
 
+    def slot_enter(self):
+
+        aid=self.lineEdit.text()
+        self.lineEdit.setText("123")
+        print(aid)
+        passwd=self.lineEdit_2.text()
+        print(passwd)
+        md5 = hashlib.md5(passwd.encode('UTF-8')).hexdigest()
+        passmd5 = md5.upper()
+        db = pymysql.connect(host='localhost', port=3306, user='root', password='root', charset='utf8', database='soft')
+        cursor = db.cursor()
+        query = "select identity from idpass where id='" + str(aid) + "'and passwd='" + passmd5 + "' "
+        print(query)
+        cursor.execute(query)
+        '''查询结果'''
+        identity = cursor.fetchall()
+        '''结果判断'''
+        if len(identity) == 0:
+            print("wrong login")
+            self.lineEdit.setText('')
+            self.lineEdit_2.setText('')
+            cursor.close()
+            db.close()
+            return
+        '''成功'''
+        self.subWidget = QtWidgets.QWidget()
+        '''判断身份'''
+        if identity[0][0] == '学生':
+            self.stu=stuMain()
+            self.hide()
+        elif identity[0][0] == '教师':
+            self.tea=teaMain()
+            self.hide()
+        elif identity[0][0] == '管理员':
+            self.admin=adminMain()
+            self.hide()
+        else:
+            print("internal wrong!")
+            return
+
+
+
+
 
 def effect_shadow_style(widget):
     effect_shadow = QtWidgets.QGraphicsDropShadowEffect(widget)
@@ -256,5 +307,5 @@ if __name__ == "__main__":
 
     app = QtWidgets.QApplication(sys.argv)
     loginWid = loginWidget(True, False)
-    loginWid.setupUi()
+    #loginWid.setupUi()
     sys.exit(app.exec())

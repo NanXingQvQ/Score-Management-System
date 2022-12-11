@@ -75,7 +75,9 @@ border-bottom-left-radius:10px;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">color: rgb(233,236,239);
-font: 12pt &quot;微软雅黑&quot;;</string>
+font: 12pt &quot;微软雅黑&quot;;
+border-top-left-radius:0px;
+border-bottom-left-radius:0px;</string>
     </property>
     <property name="text">
      <string>个人信息</string>
@@ -98,7 +100,9 @@ font: 12pt &quot;微软雅黑&quot;;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">color: rgb(233,236,239);
-font: 12pt &quot;微软雅黑&quot;;</string>
+font: 12pt &quot;微软雅黑&quot;;
+border-top-left-radius:0px;
+border-bottom-left-radius:0px;</string>
     </property>
     <property name="text">
      <string>课表信息</string>
@@ -121,7 +125,9 @@ font: 12pt &quot;微软雅黑&quot;;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">color: rgb(233,236,239);
-font: 12pt &quot;微软雅黑&quot;;</string>
+font: 12pt &quot;微软雅黑&quot;;
+border-top-left-radius:0px;
+border-bottom-left-radius:0px;</string>
     </property>
     <property name="text">
      <string>成绩信息</string>
@@ -298,8 +304,8 @@ selection-background-color: rgb(231,244,255);</string>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>570</x>
-      <y>40</y>
+      <x>520</x>
+      <y>30</y>
       <width>161</width>
       <height>31</height>
      </rect>
@@ -349,6 +355,29 @@ border-bottom-right-radius:10px;</string>
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>0</width>
+      <height>0</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QTableView" name="tableView">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>0</width>
+      <height>0</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>
