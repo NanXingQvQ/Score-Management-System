@@ -43,7 +43,7 @@ class loginWidget(QtWidgets.QWidget):
         '''设置标签，在标签上设置图片'''
         self.pictureLable = QtWidgets.QLabel(self)
         self.pictureLable.setGeometry(0, -3, 1243, 701)
-        p = QPixmap('login4.png')
+        p = QPixmap('img/login4.png')
         self.pictureLable.setPixmap(p)
         self.pictureLable.resize(self.size())
         self.pictureLable.setStyleSheet("border-radius:20px;")
@@ -288,10 +288,6 @@ class loginWidget(QtWidgets.QWidget):
             print("internal wrong!")
             return
 
-
-
-
-
 def effect_shadow_style(widget):
     effect_shadow = QtWidgets.QGraphicsDropShadowEffect(widget)
     effect_shadow.setOffset(20, 20)  # 偏移
@@ -306,5 +302,4 @@ if __name__ == "__main__":
 
     app = QtWidgets.QApplication(sys.argv)
     loginWid = loginWidget(True, False)
-    #loginWid.setupUi()
     sys.exit(app.exec())
