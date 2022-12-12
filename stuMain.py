@@ -399,6 +399,7 @@ class stuMain(QtWidgets.QMainWindow):
 
         self.tableView.setRowHeight()
 
+
         self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
 
