@@ -4,10 +4,10 @@ import pymysql
 from PyQt6.QtCore import QRegularExpression
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QPixmap, QCursor, QPainter,  QColor, QBitmap, QRegularExpressionValidator
-from student.stuMain import stuMain
-from teacher.teaMain import teaMain
-from admin.adminMain import adminMain
+from PyQt6.QtGui import QPixmap, QCursor, QPainter, QColor, QBitmap, QRegularExpressionValidator
+from stuMain import stuMain
+from teaMain import teaMain
+from adminMain import adminMain
 '''
 本文件为软件的第一个窗口，实现了用户登录的功能。
 由于PyQt6的某些不兼容问题，本文件将ui和功能的实现放在了一起。
@@ -253,21 +253,20 @@ class loginWidget(QtWidgets.QWidget):
 
         aid=self.lineEdit.text()
         self.lineEdit.setText("123")
-        print(aid)
         passwd=self.lineEdit_2.text()
-        print(passwd)
         md5 = hashlib.md5(passwd.encode('UTF-8')).hexdigest()
         passmd5 = md5.upper()
         db = pymysql.connect(host='localhost', port=3306, user='root', password='root', charset='utf8', database='soft')
         cursor = db.cursor()
         query = "select identity from idpass where id='" + str(aid) + "'and passwd='" + passmd5 + "' "
-        print(query)
         cursor.execute(query)
         '''查询结果'''
         identity = cursor.fetchall()
         '''结果判断'''
         if len(identity) == 0:
             print("wrong login")
+            self.label_5.setText("wrong")
+            self.label_5.setStyleSheet("font: 20pt '幼圆';color:red")
             self.lineEdit.setText('')
             self.lineEdit_2.setText('')
             cursor.close()
